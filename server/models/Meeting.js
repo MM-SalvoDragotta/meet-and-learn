@@ -6,7 +6,7 @@ const meetingSchema = new Schema({
     type: String,
     required: 'You need a meeting name',
     minlength: 1,
-    maxlength: 20,
+    maxlength: 100,
     trim: true,
   },
   meetingPhoto: {
