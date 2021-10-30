@@ -6,11 +6,28 @@ export const QUERY_USER = gql`
       _id
       username
       email
-      thoughts {
+      profilePhoto
+      devConfigSTRIPE
+      devConfigZOOM
+      meetings {
         _id
-        thoughtText
+        name
+        meetingPhoto
+        description
         createdAt
-      }
+        onLine
+        ZoomURL
+        location
+        organiser
+        acceptsDonation
+        attendees
+        comments {
+        _id
+        commentText
+        commentAuthor
+        createdAt
+        }
+      }     
     }
   }
 `;
@@ -43,18 +60,25 @@ export const QUERY_USER = gql`
 //   }
 // `;
 
-// export const QUERY_ME = gql`
-//   query me {
-//     me {
-//       _id
-//       username
-//       email
-//       thoughts {
-//         _id
-//         thoughtText
-//         thoughtAuthor
-//         createdAt
-//       }
-//     }
-//   }
-// `;
+export const QUERY_ME = gql`
+  query me {
+    me {
+      _id
+      username
+      email
+      meetings {
+        _id
+        name
+        meetingPhoto
+        description
+        createdAt
+        onLine
+        ZoomURL
+        location
+        organiser
+        acceptsDonation
+        attendees
+      }
+    }
+  }
+`;
