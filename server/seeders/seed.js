@@ -10,17 +10,8 @@ db.once('open', async () => {
 
     await User.create(userSeeds);
 
-    for (let i = 0; i < MeetingSeeds.length; i++) {
-      const { _id, MeetingAuthor } = await Meeting.create(MeetingSeeds[i]);
-      const user = await User.findOneAndUpdate(
-        { username: MeetingAuthor },
-        {
-          $addToSet: {
-            Meetings: _id,
-          },
-        }
-      );
-    }
+    await Meeting.create(meetingSeeds)
+    
   } catch (err) {
     console.error(err);
     process.exit(1);
