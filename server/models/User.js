@@ -36,7 +36,7 @@ const userSchema = new Schema({
     name: {type: String},
     passcode: {type: String},
     emailZoom: {type: String},
-    role: {type: Number},
+    role: {type: String},
     signature: {type: String},
     customerKey: {type: String},
     webEndpoint: {type: String}
