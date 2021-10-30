@@ -25,7 +25,7 @@ const typeDefs = gql`
     name: String
     passcode: String
     emailZoom: String
-    role: Number
+    role: String
     signature: String
     customerKey: String
     webEndpoint: String
@@ -80,9 +80,9 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addMeeting(name: String! , meetingPhoto: String! , description: String! ,onLine: Boolean! , ZoomURL: String! ,name: String! ,name: String!  ): Meeting
-    addComment(thoughtId: ID!, commentText: String!): Thought
-    removeThought(thoughtId: ID!): Thought
-    removeComment(thoughtId: ID!, commentId: ID!): Thought
+    addComment(meetingId: ID!, commentText: String!): Meeting
+    removeMeeting(meetingId: ID!): Meeting
+    removeComment(meetingId: ID!, commentId: ID!): Meeting
   }
 `;
 
