@@ -49,7 +49,7 @@ const resolvers = {
       return { token, user };
     },
     addMeeting: async (parent, 
-      { name, 
+      { title, 
         meetingPhoto , 
         description , 
         onLine ,  
@@ -60,7 +60,7 @@ const resolvers = {
       }, context) => {
       if (context.user) {
         const meeting = await Meeting.create({
-          name, 
+          title, 
           meetingPhoto , 
           description , 
           onLine ,  
