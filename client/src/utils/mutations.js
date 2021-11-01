@@ -24,20 +24,24 @@ export const ADD_USER = gql`
   }
 `;
 
-// export const ADD_THOUGHT = gql`
-//   mutation addThought($thoughtText: String!) {
-//     addThought(thoughtText: $thoughtText) {
-//       _id
-//       thoughtText
-//       thoughtAuthor
-//       createdAt
-//       comments {
-//         _id
-//         commentText
-//       }
-//     }
-//   }
-// `;
+export const ADD_MEETING = gql`
+  mutation addMeeting(
+  $title: String!,
+  $description: String!){
+    addMeeting(
+    title: $title,
+    description: $description){
+      _id
+      title
+      description
+      createdAt
+      comments {
+        _id
+        commentText
+      }
+    }
+  }
+`;
 
 // export const ADD_COMMENT = gql`
 //   mutation addComment($thoughtId: ID!, $commentText: String!) {
