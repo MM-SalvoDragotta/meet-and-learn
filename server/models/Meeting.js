@@ -2,12 +2,21 @@ const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
 const meetingSchema = new Schema({
-  name: {
+  title: {
     type: String,
-    required: 'You need a meeting name',
+    required: 'You need a meeting title',
     minlength: 1,
     maxlength: 100,
     trim: true,
+  },
+  date: {
+    type: Date,    
+  }, 
+  time: {
+    type: String,
+  },
+  duration: {
+    type: String,  
   },
   meetingPhoto: {
     type: String,  
