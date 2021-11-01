@@ -1,8 +1,11 @@
 [
   {
     "_id" : "b00000000000000000000001",
-    "name": "How designers can unlock the value of advanced analytics",
-    "meetingPhoto" : "../public/uploads/Meeting 1.png",
+    "title": "How designers can unlock the value of advanced analytics",
+    "date" : "11 Nov 21",
+    "time" : "3pm",
+    "duration" : "2 hours",  
+    "meetingPhoto" : "/uploads/Meeting 1.png",
     "description": "From this talk you will learn how bringing analytical and design disciplines together will develop a more comprehensive approach to applying data to complex problems. Dan hopes that after this talk you might start to think about Design and Analytics as Yin and Yang — seemingly opposing forces that bring balance to one another.",
     "online": false ,    
     "location" :{
@@ -18,8 +21,51 @@
   },
   {
     "_id" : "b00000000000000000000002",
-    "name": "Online DataEng meetup, November Edition",
-    "meetingPhoto" : "",
+    "title": "Online DataEng meetup, November Edition",
+    "date" : "15 Nov 21",
+    "time" : "5pm",
+    "duration" : "2 hours", 
+    "meetingPhoto" : "/uploads/Meeting 1.png",
+    "description": "In this talk we will show you how to enable data logging for an AI application. We will discuss how something so simple enables testing, monitoring and debugging of the entire AI pipeline. We will dive deeper into key properties of a logging library that can handle TBs of data, run with a constraint memory footprint and produce statistically accurate log profiles of structured and unstructured data. Attendees will leave the talk equipped with best practices to supercharge MLOps in their team.",
+    "online": false ,    
+    "location" :{
+      "address": "Sydney",
+      "postCode": "2000",
+      "city": "Sydney",
+      "country": "Australia",
+      "State": "NSW"
+    },
+    "organiser": "000000000000000000000004",
+    "acceptsDonation" : true,
+    "attendees" : ["000000000000000000000001" , "000000000000000000000010" , "000000000000000000000009"]
+  },
+  {
+    "_id" : "b00000000000000000000003",
+    "title": "How designers can unlock the value of advanced analytics",
+    "date" : "11 Nov 21",
+    "time" : "3pm",
+    "duration" : "2 hours",  
+    "meetingPhoto" : "/uploads/Meeting 1.png",
+    "description": "From this talk you will learn how bringing analytical and design disciplines together will develop a more comprehensive approach to applying data to complex problems. Dan hopes that after this talk you might start to think about Design and Analytics as Yin and Yang — seemingly opposing forces that bring balance to one another.",
+    "online": false ,    
+    "location" :{
+      "address": "Sydney",
+      "postCode": "2000",
+      "city": "Sydney",
+      "country": "Australia",
+      "State": "NSW"
+    },
+    "organiser": "000000000000000000000001",
+    "acceptsDonation" : false,
+    "attendees" : ["000000000000000000000003" , "000000000000000000000005" , "000000000000000000000007"]
+  },
+  {
+    "_id" : "b00000000000000000000004",
+    "title": "Online DataEng meetup, November Edition",
+    "date" : "15 Nov 21",
+    "time" : "5pm",
+    "duration" : "2 hours", 
+    "meetingPhoto" : "/uploads/Meeting 1.png",
     "description": "In this talk we will show you how to enable data logging for an AI application. We will discuss how something so simple enables testing, monitoring and debugging of the entire AI pipeline. We will dive deeper into key properties of a logging library that can handle TBs of data, run with a constraint memory footprint and produce statistically accurate log profiles of structured and unstructured data. Attendees will leave the talk equipped with best practices to supercharge MLOps in their team.",
     "online": false ,    
     "location" :{
