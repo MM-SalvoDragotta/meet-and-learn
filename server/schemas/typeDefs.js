@@ -8,7 +8,7 @@ const typeDefs = gql`
     password: String
     profilePhoto: String
     devConfigSTRIPE: DevConfigSTRIPE
-    vevConfigZOOM : DevConfigZOOM
+    devConfigZOOM : DevConfigZOOM
     meetings: [Meeting]!
   }
 
@@ -22,7 +22,7 @@ const typeDefs = gql`
     apiKey: String
     apiSecret: String
     meetingNumber: String
-    name: String
+    _name: String
     passcode: String
     emailZoom: String
     role: String
@@ -33,7 +33,10 @@ const typeDefs = gql`
 
   type Meeting {
     _id: ID
-    name: String
+    title: String
+    date: String
+    time: String
+    duration: String
     meetingPhoto: String
     description: String    
     createdAt: String
@@ -79,7 +82,7 @@ const typeDefs = gql`
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addMeeting(name: String! , meetingPhoto: String! , description: String! ,onLine: Boolean! , ZoomURL: String! ,name: String! ,name: String!  ): Meeting
+    addMeeting(title: String! , meetingPhoto: String! , description: String! ,onLine: Boolean! , ZoomURL: String! ,acceptsDonation: Boolean! ): Meeting
     addComment(meetingId: ID!, commentText: String!): Meeting
     removeMeeting(meetingId: ID!): Meeting
     removeComment(meetingId: ID!, commentId: ID!): Meeting
