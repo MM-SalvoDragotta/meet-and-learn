@@ -33,7 +33,7 @@ const userSchema = new Schema({
     apiKey: {type: String},
     apiSecret: {type: String},
     meetingNumber: {type: String},
-    name: {type: String},
+    _name: {type: String},
     passcode: {type: String},
     emailZoom: {type: String},
     role: {type: String},
