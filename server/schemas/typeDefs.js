@@ -44,7 +44,7 @@ const typeDefs = gql`
     ZoomURL: String
     comments: [Comment]!
     location: Location
-    organiser: User
+    organiser: String
     acceptsDonation: Boolean
     attendees: [User]
   }
@@ -83,7 +83,7 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     # addMeeting(title: String! , meetingPhoto: String! , description: String! ,onLine: Boolean! , ZoomURL: String! ,acceptsDonation: Boolean! ): Meeting
-    addMeeting(title: String! , meetingPhoto: String!) : Meeting
+    addMeeting(title: String! , description: String!) : Meeting
     addComment(meetingId: ID!, commentText: String!): Meeting
     removeMeeting(meetingId: ID!): Meeting
     removeComment(meetingId: ID!, commentId: ID!): Meeting
