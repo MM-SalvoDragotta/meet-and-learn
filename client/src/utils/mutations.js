@@ -34,11 +34,7 @@ export const ADD_MEETING = gql`
       _id
       title
       description
-      createdAt
-      comments {
-        _id
-        commentText
-      }
+      createdAt 
     }
   }
 `;
