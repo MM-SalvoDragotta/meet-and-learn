@@ -17,6 +17,10 @@ const typeDefs = gql`
     stripeKey: String
   }
 
+  type File {
+      filename: String!
+  }
+
   type DevConfigZOOM {
     _id: ID
     apiKey: String
@@ -82,11 +86,12 @@ const typeDefs = gql`
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    # addMeeting(title: String! , meetingPhoto: String! , description: String! ,onLine: Boolean! , ZoomURL: String! ,acceptsDonation: Boolean! ): Meeting
-    addMeeting(title: String! , description: String!) : Meeting
+    # addMeeting(title: String! , date: String! , time: String! , duration: String! , meetingPhoto: String! , description: String! ,onLine: Boolean! , ZoomURL: String! ,acceptsDonation: Boolean! ): Meeting
+    addMeeting(title: String! , description: String! , meetingPhoto: String!) : Meeting
     addComment(meetingId: ID!, commentText: String!): Meeting
     removeMeeting(meetingId: ID!): Meeting
     removeComment(meetingId: ID!, commentId: ID!): Meeting
+    uploadImage(file: Upload!): File!
   }
 `;
 
