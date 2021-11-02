@@ -1,52 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { Link , Redirect , useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link , Redirect  } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 
 import { ADD_MEETING} from '../../utils/mutations';
-import { QUERY_MEETINGS, QUERY_ME } from '../../utils/queries';
 
 import Auth from '../../utils/auth';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button  } from 'react-bootstrap';
 
 import "./meetingForm.css";
+
+import UploadImage from '../UploadImage'
   
 export default function MeetingForm () { 
-
   const [formState, setFormState] = useState({
    title: '',
-   description: ''
+   description: '',
+   meetingPhoto: ''
   });
-
-  // const [addMeeting, { error , data }] = useMutation(ADD_MEETING, {
-  //   update(cache, { data: {addMeeting} }) {
-  //     try {
-  //       const { meetings } = cache.readQuery({ query: QUERY_MEETINGS });
-
-  //       cache.writeQuery({
-  //         query: QUERY_MEETINGS,
-  //         data: { meetings: [addMeeting, ...meetings] },
-  //       });
-  //     } catch (e) {
-  //       console.error(e);
-  //     }
-
-  //     // update me object's cache
-  //     const { me } = cache.readQuery({ query: QUERY_ME });
-  //     cache.writeQuery({
-  //       query: QUERY_ME,
-  //       data: { me: { ...me, meetings: [...me.meetings, addMeeting] } },
-  //     });
-  //   },
-  // });
 
   const [addMeeting, { error , data }] = useMutation(ADD_MEETING)
 
-
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
     try {
       const { data } = await addMeeting({
         variables: {
@@ -54,15 +31,23 @@ export default function MeetingForm () {
           organiser: Auth.getProfile().data._id,
         },
       });
-
-      console.log(data)
-
-      formState('');
+      // console.log(data)
+      // setFormState({
+      //   title: '',
+      //   description: ''
+      // });
+      document.location = "/"
     } catch (err) {
       console.error(err);
     }
   };
 
+  const handleUpload = async () => {
+    await setFormState({
+      ...formState,
+      meetingPhoto: formState.meetingPhoto
+    })
+  }
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState ({
@@ -107,6 +92,9 @@ export default function MeetingForm () {
                           onChange={handleChange}
 
                         />                
+                      </Form.Group>
+                      <Form.Group>
+                        <UploadImage handleUpload={handleUpload}/>
                       </Form.Group>
                       <Button className="bg-dark" type="submit">
                           Submit
