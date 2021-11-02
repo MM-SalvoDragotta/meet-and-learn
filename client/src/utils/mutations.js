@@ -39,6 +39,14 @@ export const ADD_MEETING = gql`
   }
 `;
 
+export const UPLOAD_IMAGE = gql`
+    mutation uploadImage($file: Upload!){
+      uploadImage(file: $file){
+        filename
+      }
+    }
+`;
+
 // export const ADD_COMMENT = gql`
 //   mutation addComment($thoughtId: ID!, $commentText: String!) {
 //     addComment(thoughtId: $thoughtId, commentText: $commentText) {
