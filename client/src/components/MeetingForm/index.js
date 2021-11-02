@@ -12,39 +12,37 @@ import { Form, Button } from 'react-bootstrap';
 
 import "./meetingForm.css";
   
-export default function MeetingForm () {
-
-  const { title , description } = useParams();
-
-  
+export default function MeetingForm () { 
 
   const [formState, setFormState] = useState({
    title: '',
    description: ''
   });
 
+  // const [addMeeting, { error , data }] = useMutation(ADD_MEETING, {
+  //   update(cache, { data: {addMeeting} }) {
+  //     try {
+  //       const { meetings } = cache.readQuery({ query: QUERY_MEETINGS });
 
-  const [addMeeting, { error }] = useMutation(ADD_MEETING, {
-    update(cache, { data: {addMeeting} }) {
-      try {
-        const { meetings } = cache.readQuery({ query: QUERY_MEETINGS });
+  //       cache.writeQuery({
+  //         query: QUERY_MEETINGS,
+  //         data: { meetings: [addMeeting, ...meetings] },
+  //       });
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
 
-        cache.writeQuery({
-          query: QUERY_MEETINGS,
-          data: { meetings: [addMeeting, ...meetings] },
-        });
-      } catch (e) {
-        console.error(e);
-      }
+  //     // update me object's cache
+  //     const { me } = cache.readQuery({ query: QUERY_ME });
+  //     cache.writeQuery({
+  //       query: QUERY_ME,
+  //       data: { me: { ...me, meetings: [...me.meetings, addMeeting] } },
+  //     });
+  //   },
+  // });
 
-      // update me object's cache
-      const { me } = cache.readQuery({ query: QUERY_ME });
-      cache.writeQuery({
-        query: QUERY_ME,
-        data: { me: { ...me, meetings: [...me.meetings, addMeeting] } },
-      });
-    },
-  });
+  const [addMeeting, { error , data }] = useMutation(ADD_MEETING)
+
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -52,11 +50,12 @@ export default function MeetingForm () {
     try {
       const { data } = await addMeeting({
         variables: {
-          title :formState.title,
-          description: formState.description,
-          organiser: Auth.getProfile().data.username,
+          ...formState,
+          organiser: Auth.getProfile().data._id,
         },
       });
+
+      console.log(data)
 
       formState('');
     } catch (err) {
@@ -68,7 +67,7 @@ export default function MeetingForm () {
     const { name, value } = event.target;
     setFormState ({
       ...formState,
-      name: value
+      [name]: value
     })    
   };
 
@@ -84,7 +83,7 @@ export default function MeetingForm () {
                   <div style={{ display: 'block', 
                                 // width: 800, 
                                 padding: 30 }}>      
-                    <Form>
+                    <Form onSubmit={handleFormSubmit}>
                       <Form.Group>
                         <Form.Label>Title:</Form.Label>
                         <Form.Control 
