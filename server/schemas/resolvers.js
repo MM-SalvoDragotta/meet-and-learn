@@ -1,6 +1,8 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Meeting } = require('../models');
 const { signToken } = require('../utils/auth');
+const path = require("path");
+const fs = require("fs");
 
 const resolvers = {
   Query: {
@@ -66,7 +68,7 @@ const resolvers = {
           onLine ,  
           ZoomURL , 
           location ,
-          organiser : context.user.username,
+          organiser : context.user._id,
           acceptsDonation          
         });
 
@@ -129,7 +131,18 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+    uploadImage: async (_, { file }) => {
+      const { createReadStream, filename } = await file;       
+      const uploadedName = `${Date.now()}_${filename}` ;            
+      const stream = createReadStream(); 
+      const pathName = path.join(__dirname, "..", `public/uploads/${uploadedName}`);
+      await stream.pipe(fs.createWriteStream(pathName));      
+      return { 
+        filename: uploadedName        
+      };
+    },
   },
+  
 };
 
 module.exports = resolvers;
