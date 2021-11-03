@@ -37,7 +37,7 @@ const styles = {
 }
 
 const MeetingCard = (props) => {
-  console.log(props)
+  // console.log(props)
   const length = 250;
   let description = props.meeting.description;    
   if (description.length > length) {
