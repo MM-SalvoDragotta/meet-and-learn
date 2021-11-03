@@ -25,15 +25,12 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_MEETING = gql`
-  mutation addMeeting(
-  $title: String!,
-  $description: String!){
-    addMeeting(
-    title: $title,
-    description: $description){
+  mutation addMeeting(  $title: String!, $description: String! , $meetingPhoto: String! ){
+    addMeeting( title: $title, description: $description , meetingPhoto: $meetingPhoto ){
       _id
       title
       description
+      meetingPhoto
       createdAt 
     }
   }
