@@ -4,7 +4,15 @@ const { signToken } = require('../utils/auth');
 const path = require("path");
 const fs = require("fs");
 
+const {
+  GraphQLUpload,
+  graphqlUploadExpress // A Koa implementation is also exported.
+} = require("graphql-upload");
+
 const resolvers = {
+  
+  Upload: GraphQLUpload,
+
   Query: {
     users: async () => {
       return User.find().populate('meetings');
