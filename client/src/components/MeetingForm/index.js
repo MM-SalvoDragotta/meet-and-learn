@@ -31,23 +31,24 @@ export default function MeetingForm () {
           organiser: Auth.getProfile().data._id,
         },
       });
-      // console.log(data)
-      // setFormState({
-      //   title: '',
-      //   description: ''
-      // });
+      
+      // await console.log (addMeeting)
+      
       document.location = "/"
     } catch (err) {
       console.error(err);
     }
   };
 
-  const handleUpload = async () => {
+  const handleUpload = async (file) => {
+    await console.log(file)
     await setFormState({
       ...formState,
-      meetingPhoto: formState.meetingPhoto
+      // meetingPhoto: formState.meetingPhoto      
+      meetingPhoto: file.file? file.file : formState.meetingPhoto
     })
   }
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState ({
@@ -94,7 +95,7 @@ export default function MeetingForm () {
                         />                
                       </Form.Group>
                       <Form.Group>
-                        <UploadImage handleUpload={handleUpload}/>
+                        <UploadImage  handleUpload={handleUpload}/>
                       </Form.Group>
                       <Button className="bg-dark" type="submit">
                           Submit
