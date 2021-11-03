@@ -1,6 +1,18 @@
 const { gql } = require('apollo-server-express');
+const { GraphQLUpload, graphqlUploadExpress } = require('graphql-upload');
 
 const typeDefs = gql`
+  
+
+  # type Scalars {
+  # ID: string
+  # String: string
+  # Boolean: boolean
+  # Int: number
+  # Float: number 
+  # Upload: any
+  # }
+
   type User {
     _id: ID
     username: String
@@ -17,7 +29,9 @@ const typeDefs = gql`
     stripeKey: String
   }
 
-  type File {
+  scalar Upload
+
+  type File {      
       filename: String!
   }
 
@@ -87,7 +101,7 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     # addMeeting(title: String! , date: String! , time: String! , duration: String! , meetingPhoto: String! , description: String! ,onLine: Boolean! , ZoomURL: String! ,acceptsDonation: Boolean! ): Meeting
-    addMeeting(title: String! , description: String! , meetingPhoto: String!) : Meeting
+    addMeeting(title: String! , description: String! , meetingPhoto: String ) : Meeting
     addComment(meetingId: ID!, commentText: String!): Meeting
     removeMeeting(meetingId: ID!): Meeting
     removeComment(meetingId: ID!, commentId: ID!): Meeting
