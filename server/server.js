@@ -27,6 +27,7 @@ async function startServer() {
   app.use(graphqlUploadExpress());
 
   server.applyMiddleware({app});
+  
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
   app.use(express.static(path.join(__dirname, 'public')));
@@ -46,8 +47,12 @@ async function startServer() {
     app.use(express.static(path.join(__dirname, '../client/build')));
   }
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  // app.get('*', (req, res) => {
+  //   res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  // });
+
+  app.get("*", function (request, response) {
+    response.sendFile(path.resolve(__dirname, "public", "index.html"));
   });
 
   db.once('open', () => {
