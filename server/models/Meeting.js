@@ -10,11 +10,9 @@ const meetingSchema = new Schema({
     trim: true,
   },
   date: {
-    type: Date,    
+    type: Date,   
+    get: (timestamp) => dateFormat(timestamp), 
   }, 
-  time: {
-    type: String,
-  },
   duration: {
     type: String,  
   },
@@ -38,11 +36,7 @@ const meetingSchema = new Schema({
     type: String,
   },
   location :{
-    address: {type: String},
-    postCode: {type: String},
-    city: {type: String},
-    country: {type: String},
-    State: {type: String},
+    type: String,
   },    
   organiser :{
     type: Schema.Types.ObjectId,
