@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { Link , Redirect  } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 
@@ -7,18 +7,36 @@ import { ADD_MEETING} from '../../utils/mutations';
 import Auth from '../../utils/auth';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import { Form, Button  } from 'react-bootstrap';
+import { Form, Button, DropdownButton, Dropdown  } from 'react-bootstrap';
 
 import "./meetingForm.css";
 
 import UploadImage from '../UploadImage'
+import Address from '../Address'
+
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+
+import GooglePlacesAutocomplete, {
+  geocodeByPlaceId
+} from "react-google-places-autocomplete";
+
+require('dotenv').config();
   
 export default function MeetingForm () { 
   const [formState, setFormState] = useState({
    title: '',
    description: '',
-   meetingPhoto: ''
+   meetingPhoto: '',
+   date:'',
+   duration:'',
+   location:'',
   });
+
+  const [startDate, setStartDate] = useState(new Date());
+
+  const [currentDuration, setCurrentDuration] = useState('')
 
   const [addMeeting, { error , data }] = useMutation(ADD_MEETING)
 
@@ -28,6 +46,9 @@ export default function MeetingForm () {
       const { data } = await addMeeting({
         variables: {
           ...formState,
+          date:startDate,
+          duration:currentDuration,
+          location:address.label,
           organiser: Auth.getProfile().data._id,
         },
       });
@@ -49,6 +70,16 @@ export default function MeetingForm () {
     })
   }
 
+  const handleLocation = async (place) => {
+    await console.log("place", place)
+    await setFormState({
+      ...formState,
+      // meetingPhoto: formState.meetingPhoto      
+      location: place.place? place.place : formState.location
+    })
+  }
+
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState ({
@@ -56,6 +87,94 @@ export default function MeetingForm () {
       [name]: value
     })    
   };
+   
+  const changeDuration = (newDuration) => {
+    setCurrentDuration(newDuration)
+  }
+
+  const [address, setAddress] = useState();
+  const [addressObj, setAddressObj] = useState();
+
+  const getAddressObject = (address_components) => {
+
+    console.log(address_components);
+
+    const ShouldBeComponent = {
+      street_number: ["street_number"],
+      postal_code: ["postal_code"],
+      street: ["street_address", "route"],
+      province: [
+        "administrative_area_level_1",
+        "administrative_area_level_2",
+        "administrative_area_level_3",
+        "administrative_area_level_4",
+        "administrative_area_level_5"
+      ],
+      city: [
+        "locality",
+        "sublocality",
+        "sublocality_level_1",
+        "sublocality_level_2",
+        "sublocality_level_3",
+        "sublocality_level_4"
+      ],
+      country: ["country"]
+    };
+
+    let address = {
+      street_number: "",
+      postal_code: "",
+      street: "",
+      province: "",
+      city: "",
+      country: ""
+    };
+
+    address_components.forEach((component) => {
+      for (var shouldBe in ShouldBeComponent) {
+        if (ShouldBeComponent[shouldBe].indexOf(component.types[0]) !== -1) {
+          if (shouldBe === "country") {
+            address[shouldBe] = component.short_name;
+          } else {
+            address[shouldBe] = component.long_name;
+          }
+        }
+      }
+    });
+
+    // Fix the shape to match our schema
+    address.address = address.street_number + " " + address.street;
+    delete address.street_number;
+    delete address.street;
+    if (address.country === "US") {
+      address.state = address.province;
+      delete address.province;
+    }
+    return address;
+  };
+
+  useEffect(() => {
+    const func = async () => {
+      const geocodeObj =
+        address &&
+        address.value &&
+        (await geocodeByPlaceId(address.value.place_id));
+      const addressObject =
+        geocodeObj && getAddressObject(geocodeObj[0].address_components);
+
+      console.log("addressObject", addressObject);
+
+      setAddressObj(addressObject);
+
+      console.log("address",address);
+    //   console.log("address",address.keys);
+
+    };
+    func();
+  }, [address]);
+
+  const API = process.env.REACT_APP_GOOGLE_PLACES_API
+
 
   return (
     <div> 
@@ -71,7 +190,7 @@ export default function MeetingForm () {
                                 padding: 30 }}>      
                     <Form onSubmit={handleFormSubmit}>
                       <Form.Group>
-                        <Form.Label>Title:</Form.Label>
+                        <Form.Label>Title</Form.Label>
                         <Form.Control 
                           className="form-input form-100"
                           name="title"
@@ -81,8 +200,42 @@ export default function MeetingForm () {
                           onChange={handleChange}
                         />
                       </Form.Group>
+                      <Form.Group className="customDatePickerWidth form-input" >
+                        <Form.Label>Date and Time:</Form.Label>                                                  
+                            <DatePicker 
+                              customStyles={{dateInput:{borderWidth: 5}}} 
+                              dateFormat="d MMMM yyyy @ h:mm aa"
+                              selected={startDate} 
+                              onChange={(date) => setStartDate(date)}   
+                              showTimeSelect
+                              timeFormat="HH:mm"
+                              timeIntervals={15}                                                                                                             
+                            />                          
+                      </Form.Group>
+
+                                 <label className="form-input"> Meeting Duration
+                      <form className="form-input">                        
+                          <select 
+                            className="form-100"
+                            onChange={(event) => changeDuration(event.target.value)}
+                            value={currentDuration}
+                          >
+                            <option value="45 minutes">45 minutes</option>
+                            <option value="1 hour">1 hour</option>
+                            <option value="1.5 hours">1.5 hours</option>
+                            <option value="2 hours">2 hours</option>
+                            <option value="3 hours">3 hours</option>
+                            <option value="4 hours">4 hours</option>
+                            <option value="5 hours">5 hours</option>
+                            <option value="6 hours">6 hours</option>
+                            <option value="7 hours">7 hours</option>
+                            <option value="8 hours">8 hours</option>
+                          </select>                        
+                      </form>
+                      </label>
+
                       <Form.Group>
-                        <Form.Label>Description:</Form.Label>
+                        <Form.Label>Description</Form.Label>
                         <Form.Control 
                           as="textarea"
                           name="description"
@@ -91,9 +244,29 @@ export default function MeetingForm () {
                           style={{ height: '300px' }}
                           value={formState.description}
                           onChange={handleChange}
-
                         />                
                       </Form.Group>
+
+                      {/* <Address handleLocation={handleLocation}/> */}
+                      <div className="App">
+                        <h2>Location</h2>
+                        <GooglePlacesAutocomplete
+                          // apiKey={API}
+                          apiKey={API}
+                          selectProps={{
+                            isClearable: true,
+                            value: address,
+                            onChange: (val) => {
+                              setAddress(val);          
+                            }
+                          //   onChange: {locationHandler}
+                          }}
+                        />
+                        <pre style={{ textAlign: "left", background: "#f0f0f0", padding: 20 }}>
+                          {JSON.stringify(addressObj, 0, 2)}
+                        </pre>
+                      </div>
+
                       <Form.Group>
                         <UploadImage  handleUpload={handleUpload}/>
                       </Form.Group>
