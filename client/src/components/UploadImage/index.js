@@ -42,7 +42,7 @@ export default function UploadImage({handleUpload}) {
   return (
     <>
       <Form.Group controlId="formFile">
-        <Form.Label>Upload Meeting image:</Form.Label>
+        <Form.Label>Featured Meeting Photo:</Form.Label>
         <Form.Control type="file" name="file" onChange={imageHandler}/>
       </Form.Group>
     </>
