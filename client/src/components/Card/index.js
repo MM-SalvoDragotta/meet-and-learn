@@ -57,7 +57,7 @@ return (
         </Card.Body>
         <Button style={styles.btn} variant="primary" className="btn1">Click for details</Button>
         <Card.Footer>
-          <small className="text-muted">Last updated {props.meeting.createdAt}</small>
+          <small className="text-muted">Event Date & Time : <strong>{props.meeting.date}</strong></small>
         </Card.Footer>
       </Card>
     </Col>
