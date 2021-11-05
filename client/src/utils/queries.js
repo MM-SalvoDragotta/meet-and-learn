@@ -12,8 +12,7 @@ export const QUERY_USER = gql`
       meetings {
         _id
         title
-        date
-        time
+        date        
         duration
         meetingPhoto
         description
@@ -40,21 +39,14 @@ export const QUERY_MEETINGS = gql`
     meetings {
       _id
       title
-      date
-      time
+      date      
       duration
       meetingPhoto
       description
       createdAt
       onLine
       ZoomURL
-      location {        
-        address
-        postCode
-        city
-        country
-        State
-      }
+      location
       organiser
       acceptsDonation
       attendees {
@@ -97,8 +89,7 @@ export const QUERY_ME = gql`
       meetings {
         _id
         title
-        date
-        time
+        date        
         duration
         meetingPhoto
         description
