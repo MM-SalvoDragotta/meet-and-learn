@@ -12,7 +12,7 @@ import { Form, Button, DropdownButton, Dropdown  } from 'react-bootstrap';
 import "./meetingForm.css";
 
 import UploadImage from '../UploadImage'
-import Address from '../Address'
+
 
 import DatePicker from "react-datepicker";
 
