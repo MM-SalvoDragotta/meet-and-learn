@@ -55,7 +55,12 @@ return (
           {description}
           </Card.Text>          
         </Card.Body>
+        <Link
+            // className="btn btn-primary btn-block btn-squared"
+            to={`/meetings/${props.meeting._id}`}
+          >
         <Button style={styles.btn} variant="primary" className="btn1">Click for details</Button>
+        </Link>
         <Card.Footer>
           <small className="text-muted">Event Date & Time : <strong>{props.meeting.date}</strong></small>
         </Card.Footer>
