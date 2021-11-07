@@ -1,0 +1,85 @@
+.card-meeting {
+	background-color: white;
+	color: #272727;
+	padding: 20px;
+	border-radius: 10px;
+	border: 0px;
+	border-color: tomato;
+	border-style: solid;
+	transition: 200ms;
+    /* max-width: 380px; */
+}
+
+/* .card-meeting:hover {
+	transition: 200ms;
+	border: 3px;
+	border-color: goldenrod;
+	border-style: solid;
+} */
+
+.card-meeting-header {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+
+}
+
+.profile {
+	width: 2.5rem;
+	height: 2.5rem;
+	background-color: tomato;
+	border-radius: 50%;
+	margin: 10px;
+	font-size: 20pt;
+	text-align: center;
+	font-weight: bold;
+	color: white;
+	justify-content: center;
+}
+
+.letter {
+	vertical-align: middle;
+}
+
+.card-meeting-title-group {
+	justify-content: center;
+}
+
+.card-meeting-title {
+	flex: 0.5;
+	/* font-size: large; */
+	margin-bottom: 5px;
+	margin-top: 0;
+}
+.card-meeting-date {
+	flex: 0.3;
+	/* font-size: small; */
+	margin-top: 0;
+	font-weight: bolder;
+}
+
+.card-meeting-image {
+	border-radius: 20px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+.card-meeting-like-icon {
+	height: 25px;
+}
+
+.card-meeting-text {
+	/* width: 350px; */
+	font-size: medium;
+}
+
+.card-meeting-like-bar {
+	display: flex;
+	align-items: center;
+	margin-top: 20px;
+	justify-content: space-between;
+}
+
+.like-text {
+	font-size: small;
+	margin-left: 10px;
+}
