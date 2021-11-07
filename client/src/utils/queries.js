@@ -63,22 +63,29 @@ export const QUERY_MEETINGS = gql`
   }
 `;
 
-// export const QUERY_SINGLE_THOUGHT = gql`
-//   query getSingleThought($thoughtId: ID!) {
-//     thought(thoughtId: $thoughtId) {
-//       _id
-//       thoughtText
-//       thoughtAuthor
-//       createdAt
-//       comments {
-//         _id
-//         commentText
-//         commentAuthor
-//         createdAt
-//       }
-//     }
-//   }
-// `;
+export const QUERY_SINGLE_MEETING = gql`
+  query getSingleMeeting($meetingId: ID!) {
+    meeting(meetingId: $meetingId) {
+      _id
+      title
+      date      
+      duration
+      meetingPhoto
+      description
+      createdAt
+      onLine
+      ZoomURL
+      location
+      organiser
+      acceptsDonation
+      attendees {
+        _id
+        email
+      }
+    
+    }
+  }
+`;
 
 export const QUERY_ME = gql`
   query me {
