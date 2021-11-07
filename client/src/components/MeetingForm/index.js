@@ -7,7 +7,7 @@ import { ADD_MEETING} from '../../utils/mutations';
 import Auth from '../../utils/auth';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import { Form, Button, DropdownButton, Dropdown  } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 
 import "./meetingForm.css";
 
@@ -22,7 +22,13 @@ import GooglePlacesAutocomplete, {
   geocodeByPlaceId
 } from "react-google-places-autocomplete";
 
+import SimpleFileUpload, {
+  SimpleFileUploadProvider
+} from 'react-simple-file-upload'
+
 require('dotenv').config();
+
+const API = process.env.REACT_APP_GOOGLE_PLACES_API
   
 export default function MeetingForm () { 
   const [formState, setFormState] = useState({
@@ -31,30 +37,44 @@ export default function MeetingForm () {
    meetingPhoto: '',
    date:'',
    duration:'',
-   location:'',
+   attendees: [],
+   onLine:false,
+   ZoomURL:''
   });
+
+  let Location = ''
 
   const [startDate, setStartDate] = useState(new Date());
 
-  const [currentDuration, setCurrentDuration] = useState('')
+  const [currentDuration, setCurrentDuration] = useState('');
 
-  const [addMeeting, { error , data }] = useMutation(ADD_MEETING)
+  const [currentCheckbox, setCurrentCheckbox] = useState(false) ; 
+
+ const [photo, setPhoto] = useState([]) ;
+ const [uploadedImages, setUploadedImages] = useState([]);
+
+  const [addMeeting, { error , data }] = useMutation(ADD_MEETING);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    if (currentCheckbox == false) {
+       Location = address.label
+    }
+
     try {
       const { data } = await addMeeting({
         variables: {
           ...formState,
           date:startDate,
           duration:currentDuration,
-          location:address.label,
+          location:Location,
+          onLine:currentCheckbox,          
+          attendees: [Auth.getProfile().data._id],
           organiser: Auth.getProfile().data._id,
+          meetingPhoto: uploadedImages
         },
-      });
-      
-      // await console.log (addMeeting)
-      
+      });      
+      // await console.log (addMeeting)      
       document.location = "/"
     } catch (err) {
       console.error(err);
@@ -69,16 +89,6 @@ export default function MeetingForm () {
       meetingPhoto: file.file? file.file : formState.meetingPhoto
     })
   }
-
-  const handleLocation = async (place) => {
-    await console.log("place", place)
-    await setFormState({
-      ...formState,
-      // meetingPhoto: formState.meetingPhoto      
-      location: place.place? place.place : formState.location
-    })
-  }
-
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -173,9 +183,16 @@ export default function MeetingForm () {
     func();
   }, [address]);
 
-  const API = process.env.REACT_APP_GOOGLE_PLACES_API
+  function handleFile(url){
+    console.log('The URL of the file is ' + url)
+    setUploadedImages([...uploadedImages, url]);
+  }
 
-
+  function handleOnDrop(url) {
+    console.log("drop started")
+    console.log('The URL of the file is ' + url)
+  }
+   
   return (
     <div> 
       {Auth.loggedIn() ? (
@@ -183,13 +200,13 @@ export default function MeetingForm () {
           <main className="flex-row justify-center mb-4">
             <div className="col-12 col-lg-8">
               <div className="card">
-                <h4 className="card-header bg-dark text-light p-2">Create an event</h4>
+                <h4 className="card-header bg-dark text-light p-2">Create new event</h4>
                 <div className="card-body">
                   <div style={{ display: 'block', 
                                 // width: 800, 
                                 padding: 30 }}>      
                     <Form onSubmit={handleFormSubmit}>
-                      <Form.Group>
+                      <Form.Group className=" form-input bg-warning">
                         <Form.Label>Title</Form.Label>
                         <Form.Control 
                           className="form-input form-100"
@@ -199,42 +216,47 @@ export default function MeetingForm () {
                           value={formState.title}
                           onChange={handleChange}
                         />
-                      </Form.Group>
-                      <Form.Group className="customDatePickerWidth form-input" >
-                        <Form.Label>Date and Time:</Form.Label>                                                  
-                            <DatePicker 
-                              customStyles={{dateInput:{borderWidth: 5}}} 
-                              dateFormat="d MMMM yyyy @ h:mm aa"
-                              selected={startDate} 
-                              onChange={(date) => setStartDate(date)}   
-                              showTimeSelect
-                              timeFormat="HH:mm"
-                              timeIntervals={15}                                                                                                             
-                            />                          
+                      </Form.Group>                     
+                        
+                      <Form.Group className="customDatePickerWidth form-input bg-warning" >
+                        <Form.Label>Date and Time:</Form.Label>
+                        <div>                                                   
+                          <DatePicker 
+                            customStyles={{dateInput:{borderWidth: 5}}} 
+                            dateFormat="d MMMM yyyy @ h:mm aa"
+                            selected={startDate} 
+                            onChange={(date) => setStartDate(date)}   
+                            showTimeSelect
+                            timeFormat="HH:mm"
+                            timeIntervals={15}                                                                                                             
+                          />
+                        </div>                          
                       </Form.Group>
 
-                                 <label className="form-input"> Meeting Duration
-                      <form className="form-input">                        
-                          <select 
-                            className="form-100"
-                            onChange={(event) => changeDuration(event.target.value)}
-                            value={currentDuration}
-                          >
-                            <option value="45 minutes">45 minutes</option>
-                            <option value="1 hour">1 hour</option>
-                            <option value="1.5 hours">1.5 hours</option>
-                            <option value="2 hours">2 hours</option>
-                            <option value="3 hours">3 hours</option>
-                            <option value="4 hours">4 hours</option>
-                            <option value="5 hours">5 hours</option>
-                            <option value="6 hours">6 hours</option>
-                            <option value="7 hours">7 hours</option>
-                            <option value="8 hours">8 hours</option>
-                          </select>                        
-                      </form>
-                      </label>
+                      <Form.Group className="form-input bg-warning">
+                        <Form.Label>Meeting Duration:</Form.Label>                          
+                          <form >                        
+                              <select 
+                                className="form-100"
+                                onChange={(event) => changeDuration(event.target.value)}
+                                value={currentDuration}
+                              >
+                                <option value="45 minutes">45 minutes</option>
+                                <option value="1 hour">1 hour</option>
+                                <option value="1.5 hours">1.5 hours</option>
+                                <option value="2 hours">2 hours</option>
+                                <option value="3 hours">3 hours</option>
+                                <option value="4 hours">4 hours</option>
+                                <option value="5 hours">5 hours</option>
+                                <option value="6 hours">6 hours</option>
+                                <option value="7 hours">7 hours</option>
+                                <option value="8 hours">8 hours</option>
+                              </select>                        
+                          </form>
+                        
+                      </Form.Group>
 
-                      <Form.Group>
+                      <Form.Group className="form-input bg-warning">
                         <Form.Label>Description</Form.Label>
                         <Form.Control 
                           as="textarea"
@@ -246,43 +268,124 @@ export default function MeetingForm () {
                           onChange={handleChange}
                         />                
                       </Form.Group>
-
-                      {/* <Address handleLocation={handleLocation}/> */}
-                      <div className="App">
-                        <h2>Location</h2>
-                        <GooglePlacesAutocomplete
-                          // apiKey={API}
-                          apiKey={API}
-                          selectProps={{
-                            isClearable: true,
-                            value: address,
-                            onChange: (val) => {
-                              setAddress(val);          
-                            }
-                          //   onChange: {locationHandler}
-                          }}
-                        />
-                        <pre style={{ textAlign: "left", background: "#f0f0f0", padding: 20 }}>
-                          {JSON.stringify(addressObj, 0, 2)}
-                        </pre>
-                      </div>
-
-                      <Form.Group>
-                        <UploadImage  handleUpload={handleUpload}/>
+                     
+                      <Form.Group className="form-input bg-warning" >
+                        <Form.Label>Location</Form.Label>                  
+                        <div class="checkbox">
+                          <label>
+                              <input 
+                              type="checkbox"                              
+                              Checked={currentCheckbox} 
+                              onChange={() => setCurrentCheckbox(!currentCheckbox)}                              
+                              /> Make this an online event
+                          </label>
+                        </div>
+                         
+                          {!currentCheckbox ? (
+                        <div>                                                       
+                          <GooglePlacesAutocomplete                            
+                            apiKey={API}
+                            // placeholder='Search'
+                            selectProps={{
+                              isClearable: true,
+                              value: address,
+                              onChange: (val) => {
+                                setAddress(val);          
+                              }                            
+                            }}
+                          />
+                          <pre style={{ textAlign: "left", background: "#f0f0f0", padding: 20 }}>
+                            {JSON.stringify(addressObj, 0, 2)}
+                          </pre>
+                        </div> ) : (
+                          <Form.Group className="bg-warning">
+                            <Form.Label>Online Meeting URL </Form.Label>
+                            <Form.Control 
+                              className="form-input form-100"
+                              name="ZoomURL"
+                              type="text" 
+                              placeholder="Enter meeting link" 
+                              value={formState.ZoomURL}
+                              onChange={handleChange}
+                            />
+                          </Form.Group> 
+                        )}                        
                       </Form.Group>
-                      <Button className="bg-dark" type="submit">
-                          Submit
-                      </Button>
+                      
+                      
+                      <Form.Group className="form-input bg-warning">
+                       {/* <div> 
+                        <UploadImage  handleUpload={handleUpload}/>
+                      </div> */}
+
+                        {/* <div className="App">
+                        <header className="App-header">
+                          <h1>Simple File Upload</h1>
+                          <a className="btn" href="https://simplefileupload.com">
+                            Try it now!
+                          </a>
+                        </header>                                              
+                            <main>
+                              <div className="upload-wrapper">                      
+                                <SimpleFileUpload
+                                  apiKey="p387f878c784b7ce41f1f00fc7e04271e"                          
+                                  // width="300"
+                                  // height="300"
+                                  preview="false"
+                                  onSuccess={handleFile}                                                  
+                                />
+                                                    
+                              </div>
+                              <p>photo url : {photo} </p> 
+                            </main>                     
+                          </div> */}
+
+                          <div className="App">
+                            <header className="App-header">
+                              <h1>Simple File Upload Demo</h1>
+                              <a className="btn" href="https://simplefileupload.com">
+                                Try it now!
+                              </a>
+                            </header>
+                            <main>
+                              <div className="upload-wrapper">
+                                <SimpleFileUpload
+                                  apiKey="p387f878c784b7ce41f1f00fc7e04271e"
+                                  onSuccess={handleFile}
+                                  onDrop={handleOnDrop}
+                                  preview="false"
+                                />
+                              </div>
+
+                              <ul className="image-grid">
+                                {uploadedImages.length ? (
+                                  uploadedImages.map((image) => (
+                                    <li>
+                                      <img src={image} alt="Fun images" />
+                                    </li>
+                                  ))
+                                ) : (
+                                  <p>Your uploaded images will appear here!</p>
+                                )}
+                              </ul>
+                            </main>
+                          </div>
+                        <Button className="bg-dark" type="submit">
+                            Submit
+                        </Button>
+                      </Form.Group>
+
                     </Form>
+
                   </div>
                 </div>
               </div>
             </div>
           </main>
         </>
-        ) : (          
-            <Redirect to='/'/>          
-          )}
+          ) : (          
+          <Redirect to='/'/>          
+      )}
     </div>
   );
 }
