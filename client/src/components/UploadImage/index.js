@@ -27,7 +27,8 @@ export default function UploadImage({handleUpload}) {
             setImage(file.name)
 
             handleUpload({
-                file: `/uploads/${newImage.data.uploadImage.filename}`
+
+                //file: `/uploads/${newImage.data.uploadImage.filename}`
                 // file: newImage.data.uploadImage.filename
                 
             });
@@ -43,6 +44,8 @@ export default function UploadImage({handleUpload}) {
     <>
       <Form.Group controlId="formFile">
         <Form.Label>Featured Meeting Photo:</Form.Label>
+
+
         <Form.Control type="file" name="file" onChange={imageHandler}/>
       </Form.Group>
     </>

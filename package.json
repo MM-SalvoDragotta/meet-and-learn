@@ -21,6 +21,7 @@
     "graphql-upload": "^12.0.0",
     "material-ui-search-bar": "^1.0.0",
     "react-load-script": "0.0.6",
+    "react-simple-file-upload": "^0.4.0",
     "stream-promise": "^3.2.0"
   }
 }
