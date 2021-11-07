@@ -20,9 +20,15 @@ export const QUERY_USER = gql`
         onLine
         ZoomURL
         location
-        organiser
+        organiser {
+          _id
+          organiserName
+        }
         acceptsDonation
-        attendees
+        attendees {
+          _id
+          attendeeName
+        }
         comments {
         _id
         commentText
@@ -47,11 +53,14 @@ export const QUERY_MEETINGS = gql`
       onLine
       ZoomURL
       location
-      organiser
+      organiser{
+          _id
+          organiserName
+        }
       acceptsDonation
       attendees {
         _id
-        email
+        attendeeName
       }
       comments {
         _id
@@ -76,13 +85,15 @@ export const QUERY_SINGLE_MEETING = gql`
       onLine
       ZoomURL
       location
-      organiser
+      organiser {
+        _id
+        organiserName
+      }
       acceptsDonation
       attendees {
         _id
-        email
-      }
-    
+        attendeeName
+      }    
     }
   }
 `;
@@ -104,9 +115,15 @@ export const QUERY_ME = gql`
         onLine
         ZoomURL
         location
-        organiser
+        organiser{
+          _id
+          organiserName
+        }
         acceptsDonation
-        attendees
+        attendees {
+        _id
+        attendeeName
+      }    
       }
     }
   }

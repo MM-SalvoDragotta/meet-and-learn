@@ -19,6 +19,16 @@ const typeDefs = gql`
     stripeKey: String
   }
 
+  type Host {
+    _id:ID
+    organiserName: String
+  }
+
+  type Attendee {
+    _id:ID
+    attendeeName: String
+  }
+
   scalar Upload
 
   type File {      
@@ -51,11 +61,10 @@ const typeDefs = gql`
     ZoomURL: String
     comments: [Comment]!
     location: String!
-    organiser: String
+    organiser: Host
     acceptsDonation: String
-    attendees: [User]
+    attendees: [Attendee]
   }
-
   
   type Comment {
     _id: ID

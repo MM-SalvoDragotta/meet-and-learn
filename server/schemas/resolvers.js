@@ -81,8 +81,8 @@ const resolvers = {
           onLine,  
           ZoomURL , 
           location ,
-          attendees : [context.user._id],
-          organiser : context.user._id,
+          attendees : [{_id: context.user._id , attendeeName: context.user.username}],
+          organiser : {_id: context.user._id, organiserName: context.user.username},
           acceptsDonation          
         });
 
