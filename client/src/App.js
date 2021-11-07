@@ -10,12 +10,11 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { createUploadLink } from "apollo-upload-client"
 
-
-
 import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import MeetingForm from './components/MeetingForm';
+import SingleMeeting from './pages/SingleMeeting';
 
 
 // import SingleThought from './pages/SingleThought';
@@ -65,6 +64,9 @@ function App() {
             </Route>
             <Route exact path="/addEvent">
               <MeetingForm />
+            </Route>
+            <Route exact path="/meeting/:meetingId">
+              <SingleMeeting />
             </Route>
 
             {/* <Route exact path="/me">
