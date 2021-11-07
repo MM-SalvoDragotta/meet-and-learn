@@ -14,7 +14,7 @@
   },
   {
     "_id" : "000000000000000000000003",
-    "username": "Why The Lucky Stiff",
+    "username": "Sarah Edwards",
     "email": "wtls@techfriends.dev",
     "password": "password03",
     "meetings" : ["b00000000000000000000001"]
@@ -28,7 +28,7 @@
   },
   {
     "_id" : "000000000000000000000005",
-    "username": "Edward V. Berard",
+    "username": "Edward Berard",
     "email": "evberard@techfriends.dev",
     "password": "password05",
     "meetings" : ["b00000000000000000000001"]
@@ -41,7 +41,7 @@
   },
   {
     "_id" : "000000000000000000000007",
-    "username": "C.A.R. Hoare",
+    "username": "Carl Hoare",
     "email": "choare@techfriends.dev",
     "password": "password07",
     "meetings" : ["b00000000000000000000001"]
@@ -61,7 +61,7 @@
   },
   {
     "_id" : "000000000000000000000010",
-    "username": "Lernantino",
+    "username": "Julio Lernantino",
     "email": "lernantino@techfriends.dev",
     "password": "password10",
     "meetings" : ["b00000000000000000000002"]
