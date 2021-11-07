@@ -50,9 +50,9 @@ const typeDefs = gql`
     onLine: Boolean
     ZoomURL: String
     comments: [Comment]!
-    location: String
+    location: String!
     organiser: String
-    acceptsDonation: Boolean
+    acceptsDonation: String
     attendees: [User]
   }
 
@@ -81,7 +81,7 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     # addMeeting(title: String! , date: String! , time: String! , duration: String! , meetingPhoto: String! , description: String! ,onLine: Boolean! , ZoomURL: String! ,acceptsDonation: Boolean! ): Meeting
-    addMeeting(title: String! , description: String! , meetingPhoto: String! , date: String!, duration: String! location: String!) : Meeting
+    addMeeting(title: String! , description: String! , meetingPhoto: String! , date: String!, duration: String! location: String! , onLine: Boolean , ZoomURL: String) : Meeting
     addComment(meetingId: ID!, commentText: String!): Meeting
     removeMeeting(meetingId: ID!): Meeting
     removeComment(meetingId: ID!, commentId: ID!): Meeting
