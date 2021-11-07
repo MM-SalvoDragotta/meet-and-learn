@@ -16,8 +16,6 @@ import Login from './pages/Login';
 import MeetingForm from './components/MeetingForm';
 import SingleMeeting from './pages/SingleMeeting';
 
-
-// import SingleThought from './pages/SingleThought';
 // import Profile from './pages/Profile';
 import Header from './components/Header';
 // import Footer from './components/Footer';
@@ -74,12 +72,10 @@ function App() {
             </Route> */}
             {/* <Route exact path="/profiles/:username">
               <Profile />
-            </Route>
-            <Route exact path="/thoughts/:thoughtId">
-              <SingleThought />
-            </Route> */}
-          </div>
+            </Route> */}         
+          
           {/* <Footer /> */}
+          </div>
         </div>
       </Router>
     </ApolloProvider>

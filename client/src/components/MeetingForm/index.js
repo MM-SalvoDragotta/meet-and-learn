@@ -13,7 +13,6 @@ import "./meetingForm.css";
 
 import UploadImage from '../UploadImage'
 
-
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -29,6 +28,7 @@ import SimpleFileUpload, {
 require('dotenv').config();
 
 const API = process.env.REACT_APP_GOOGLE_PLACES_API
+const SimpleUploadAPI = process.env.REACT_APP_SIMPLE_UPLOAD_API
   
 export default function MeetingForm () { 
   const [formState, setFormState] = useState({
@@ -71,7 +71,7 @@ export default function MeetingForm () {
           onLine:currentCheckbox,          
           attendees: [Auth.getProfile().data._id],
           organiser: Auth.getProfile().data._id,
-          meetingPhoto: uploadedImages
+          // meetingPhoto: uploadedImages
         },
       });      
       // await console.log (addMeeting)      
@@ -314,9 +314,9 @@ export default function MeetingForm () {
                       
                       
                       <Form.Group className="form-input bg-warning">
-                       {/* <div> 
+                       <div> 
                         <UploadImage  handleUpload={handleUpload}/>
-                      </div> */}
+                      </div>
 
                         {/* <div className="App">
                         <header className="App-header">
@@ -340,7 +340,7 @@ export default function MeetingForm () {
                             </main>                     
                           </div> */}
 
-                          <div className="App">
+                          {/* <div className="App">
                             <header className="App-header">
                               <h1>Simple File Upload Demo</h1>
                               <a className="btn" href="https://simplefileupload.com">
@@ -350,7 +350,7 @@ export default function MeetingForm () {
                             <main>
                               <div className="upload-wrapper">
                                 <SimpleFileUpload
-                                  apiKey="p387f878c784b7ce41f1f00fc7e04271e"
+                                  apiKey={SimpleUploadAPI}
                                   onSuccess={handleFile}
                                   onDrop={handleOnDrop}
                                   preview="false"
@@ -369,7 +369,7 @@ export default function MeetingForm () {
                                 )}
                               </ul>
                             </main>
-                          </div>
+                          </div> */}
                         <Button className="bg-dark" type="submit">
                             Submit
                         </Button>

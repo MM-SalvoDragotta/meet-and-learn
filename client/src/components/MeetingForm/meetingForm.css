@@ -94,7 +94,7 @@
   font-size: 1.25rem;
 }
 
-.btn {
+/* .btn {
   background: linear-gradient(90deg, #b731dd 0, #4161eb 100%);
   padding: 0.5rem 1.25rem;
   border-radius: 0.25rem;
@@ -106,7 +106,7 @@
 
 .btn:hover {
   transform: scale(1.05);
-}
+} */
 
 .App header a {
   color: white;

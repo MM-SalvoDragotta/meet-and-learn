@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link , Redirect } from 'react-router-dom';
 
 import { Nav , Navbar , NavDropdown , Dropdown , Container , SplitButton} from "react-bootstrap";
 
@@ -7,9 +7,11 @@ import Auth from '../../utils/auth';
 
 const Header = () => {
   const logout = (event) => {
-    event.preventDefault();
+    event.preventDefault();    
     Auth.logout();
+    
   };
+
   return (
     <div> 
       <Navbar 
@@ -56,11 +58,10 @@ const Header = () => {
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                 {/* </NavDropdown> */}
-                </SplitButton>
-              
-                <button className="btn btn-lg btn-light m-2" onClick={logout}>
+                </SplitButton>                                
+                  <button className="btn btn-lg btn-light m-2" onClick={logout}>
                   Logout
-                </button>
+                  </button>                
               </Nav>
             </>
               ) : (
