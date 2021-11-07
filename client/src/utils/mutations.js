@@ -25,8 +25,8 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_MEETING = gql`
-  mutation addMeeting(  $title: String!, $description: String! , $meetingPhoto: String! , $date: String! , $duration: String!, $location: String!){
-    addMeeting( title: $title, description: $description , meetingPhoto: $meetingPhoto, date: $date, duration: $duration , location: $location ){
+  mutation addMeeting(  $title: String!, $description: String! , $meetingPhoto: String! , $date: String! , $duration: String!, $location: String! , $onLine: Boolean, $ZoomURL: String){
+    addMeeting( title: $title, description: $description , meetingPhoto: $meetingPhoto, date: $date, duration: $duration , location: $location , onLine: $onLine , ZoomURL: $ZoomURL ){
       _id
       title
       description
@@ -34,6 +34,8 @@ export const ADD_MEETING = gql`
       duration
       location
       meetingPhoto
+      onLine
+      ZoomURL
       createdAt 
     }
   }
