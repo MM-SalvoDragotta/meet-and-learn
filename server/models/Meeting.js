@@ -38,18 +38,29 @@ const meetingSchema = new Schema({
   location :{
     type: String,
   },    
-  organiser :{
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-  },
+  organiser :
+    {
+      _id: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',    
+      },
+      organiserName: {
+        type: String,
+      }
+    } ,
   acceptsDonation : {
     type: Boolean,
   },
   attendees : [
     {
+    _id: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
-    },
+      ref: 'User',    
+      },
+      attendeeName: {
+        type: String,
+      }
+    }
   ],
   comments: [
     {
@@ -70,6 +81,7 @@ const meetingSchema = new Schema({
       },
     },
   ],
+
 });
 
 const Meeting = model('Meeting', meetingSchema);
