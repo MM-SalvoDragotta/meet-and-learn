@@ -67,6 +67,7 @@ const resolvers = {
         onLine ,  
         ZoomURL , 
         location ,
+        attendees,
         organiser ,
         acceptsDonation
       }, context) => {
@@ -77,9 +78,10 @@ const resolvers = {
           description ,
           date,
           duration,           
-          onLine ,  
+          onLine,  
           ZoomURL , 
           location ,
+          attendees : [context.user._id],
           organiser : context.user._id,
           acceptsDonation          
         });
