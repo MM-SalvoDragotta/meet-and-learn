@@ -42,21 +42,25 @@ const Header = () => {
                   menuVariant="dark" 
                   className="btn btn-lg btn-info m-2"         
                 > */}
-                  <NavDropdown.Item href="#MyMeetings">
+                  <NavDropdown.Item >
                     <Link to="/dashboard" variant="light">
                       Dashboard
                     </Link>
                     </NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.2">
+                  <NavDropdown.Item >
                   <Link to="/addEvent" variant="light">
                       Create New Event
                     </Link>
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.3">
+                    Something
+                  </NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.4">
+                    Separated link
+                  </NavDropdown.Item>
                 {/* </NavDropdown> */}
                 </SplitButton>                                
                   <button className="btn btn-lg btn-light m-2" onClick={logout}>

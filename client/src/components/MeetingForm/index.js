@@ -30,7 +30,7 @@ require('dotenv').config();
 const API = process.env.REACT_APP_GOOGLE_PLACES_API
 const SimpleUploadAPI = process.env.REACT_APP_SIMPLE_UPLOAD_API
   
-export default function MeetingForm () { 
+export default function MeetingForm (props) { 
   const [formState, setFormState] = useState({
    title: '',
    description: '',
@@ -200,7 +200,7 @@ export default function MeetingForm () {
           <main className="flex-row justify-center mb-4">
             <div className="col-12 col-lg-8">
               <div className="card">
-                <h4 className="card-header bg-dark text-light p-2">Create new event</h4>
+                <h4 className="card-header bg-dark text-light p-2">{props.formTitle}</h4>
                 <div className="card-body">
                   <div style={{ display: 'block', 
                                 // width: 800, 

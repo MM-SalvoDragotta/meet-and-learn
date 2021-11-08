@@ -45,6 +45,8 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+let formTitle = ["Create new event"]
+
 function App() {
   return (
     <ApolloProvider client={client}>
@@ -62,10 +64,10 @@ function App() {
               <Signup />
             </Route>
             <Route exact path="/addEvent">
-              <MeetingForm />
+              <MeetingForm formTitle={formTitle} />
             </Route>
             <Route exact path="/meeting/:meetingId">
-              <SingleMeeting />
+              <SingleMeeting  />
             </Route>
             <Route exact path="/dashboard">
               <Dashboard />
