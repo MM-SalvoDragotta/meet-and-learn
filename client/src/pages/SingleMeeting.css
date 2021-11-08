@@ -83,3 +83,40 @@
 	font-size: small;
 	margin-left: 10px;
 }
+
+.btn-1 {
+    margin: 1rem;
+    text-align: center;
+    color: black;
+    background-color: goldenrod !important;
+    border-color: black;
+    transition: all ease .5s;  
+    width: 265px;
+    justify-content: center;
+    align-items: center
+}
+
+.btn-1:hover {
+    color:white !important;
+    font-weight: bold; 
+    background-color:green !important;
+}
+
+.btn-2 {
+    margin: 1rem;
+    text-align: center;
+    color: black;
+    background-color: goldenrod !important;
+    border-color: black;
+    transition: all ease .5s;  
+    width: 265px;
+    justify-content: center;
+    align-items: center
+}
+
+.btn-2:hover {
+    color:white !important;
+    font-weight: bold; 
+    background-color:red !important;
+}
+

@@ -2,13 +2,16 @@ import React from 'react';
 
 // Import the `useParams()` hook
 import { useParams , Redirect } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
+
 import "./SingleMeeting.css";
 
 import heartOutline from "../assets/heart-outline.png"; 
 import heartFill from "../assets/heart-fill.png"; 
 
-import { QUERY_SINGLE_MEETING , QUERY_ME} from '../utils/queries';
+import { QUERY_SINGLE_MEETING } from '../utils/queries';
+import { DELETE_MEETING} from '../utils/mutations';
+
 
 import 'bootstrap/dist/css/bootstrap.css';
 import { Spinner, Button } from 'react-bootstrap';
@@ -29,16 +32,18 @@ const SingleMeeting = () => {
     variables: { meetingId: meetingId },
   });
 
-  const meeting = data?.meeting || {};
+  const meeting = data?.meeting || {}; 
 
   let allAttendees = meeting.attendees
 
-  // console.log(meeting)
+  const [removeMeeting , { loading2, data2 } ]= useMutation(DELETE_MEETING);
+
+  console.log(meeting)
   // console.log("allAttendees " , allAttendees)
   // console.log("attendees" , meeting.attendees)
   // console.log("type of attendees" , typeof(meeting.attendees))
 
-   let avatars = []
+  let avatars = []
 
   allAttendees?.forEach(function (arrayItem) {
     var _name = arrayItem.attendeeName;
@@ -57,9 +62,21 @@ Object.size =  function(obj) {
 
 var size = Object.size(meeting.attendees)
 // console.log("size" , size)
+//  console.log("id" , meeting._id)
+//   console.log("type of meeting._id" , typeof(meeting._id))
+//   console.log(Auth.getProfile())
 
- console.log("Online" , meeting.onLine)
-  console.log("type of meeting.onLine" , typeof(meeting.onLine))
+  const handleDelete = (e) => {
+    // console.log(e.target)
+    removeMeeting({ variables: { meetingId: meeting?._id } });
+    window.location.assign('/')  
+  };
+
+  const handleUpdate = (e) => {
+    // console.log(e.target)
+    removeMeeting({ variables: { meetingId: meeting?._id } });
+    window.location.assign('/')  
+  };
 
   if (loading) {
     return <Button variant="primary" disabled>
@@ -88,6 +105,24 @@ var size = Object.size(meeting.attendees)
                     <div className="card-meeting-date">{meeting.date}</div>                    
                     <h3 className="card-meeting-title">{meeting.title}</h3>            
                     <h6 className="card-meeting-date">Hosted by {meeting.organiser.organiserName}</h6>
+                    {Auth.getProfile().data._id == meeting.organiser._id && 
+                    <div>
+                      <Button 
+                        variant="primary"
+                        onClick={handleDelete}
+                        className="btn-2"                   
+                        > Delete Meeting
+                      </Button> 
+
+                    <Button 
+                      variant="primary"
+                      onClick={handleUpdate}
+                      className="btn-1"                   
+                      > Update Meeting
+                    </Button>
+                    
+                    </div>
+                    }
                   </div>
                 </div>
                 <img className="card-meeting-image" src={meeting.meetingPhoto} alt="Logo" />
@@ -134,6 +169,7 @@ var size = Object.size(meeting.attendees)
                     <b>{attendees}</b> kişi bu tarifi beğendi.
                   </div> */}
                 </div>
+             
               </div>
             </div>
           </main>
