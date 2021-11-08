@@ -18,6 +18,7 @@ import SingleMeeting from './pages/SingleMeeting';
 
 // import Profile from './pages/Profile';
 import Header from './components/Header';
+import Dashboard from './components/Dashboard';
 // import Footer from './components/Footer';
 
 // Construct our main GraphQL API endpoint
@@ -65,6 +66,9 @@ function App() {
             </Route>
             <Route exact path="/meeting/:meetingId">
               <SingleMeeting />
+            </Route>
+            <Route exact path="/dashboard">
+              <Dashboard />
             </Route>
 
             {/* <Route exact path="/me">
