@@ -15,21 +15,21 @@ const resolvers = {
 
   Query: {
     users: async () => {
-      return User.find().populate('meetings');
+      return await User.find().populate('meetings');
     },
     user: async (parent, { username }) => {
-      return User.findOne({ username }).populate('meetings');
+      return await User.findOne({ username }).populate('meetings');
     },
     meetings: async (parent, { username }) => {
       const params = username ? { username } : {};
-      return Meeting.find(params).sort({ createdAt: -1 });
+      return await Meeting.find(params).sort({ date: 1 });
     },
     meeting: async (parent, { meetingId }) => {
-      return Meeting.findOne({ _id: meetingId });
+      return await Meeting.findOne({ _id: meetingId });
     },
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate('meetings');
+        return await User.findById({ _id: context.user._id }).populate('meetings').exec()
       }
       throw new AuthenticationError('You need to be logged in!');
     },
@@ -114,17 +114,25 @@ const resolvers = {
     },
     removeMeeting: async (parent, { meetingId }, context) => {
       if (context.user) {
-        const meeting = await Meeting.findOneAndDelete({
-          _id: meetingId,
-          meetingAuthor: context.user.username,
+        const meeting = await Meeting.findByIdAndDelete({
+          _id: meetingId,         
         });
 
-        await User.findOneAndUpdate(
+        await User.findByIdAndUpdate(
           { _id: context.user._id },
           { $pull: { meetings: meeting._id } }
         );
 
         return meeting;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    updateMeeting: async (parent, { meetingId }, context) => {
+      if (context.user) {
+        const meeting = await Meeting.findByIdAndUpdate({
+          _id: meetingId,         
+        });   
+         return meeting;
       }
       throw new AuthenticationError('You need to be logged in!');
     },

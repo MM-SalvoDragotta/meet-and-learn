@@ -49,6 +49,16 @@ export const UPLOAD_IMAGE = gql`
     }
 `;
 
+export const DELETE_MEETING = gql`
+    mutation removeMeeting($meetingId: ID!){
+      removeMeeting(meetingId: $meetingId){
+        _id
+        title
+      }
+    }
+`;
+
+
 // export const ADD_COMMENT = gql`
 //   mutation addComment($thoughtId: ID!, $commentText: String!) {
 //     addComment(thoughtId: $thoughtId, commentText: $commentText) {

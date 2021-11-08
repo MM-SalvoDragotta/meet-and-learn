@@ -42,9 +42,9 @@ const Header = () => {
                   menuVariant="dark" 
                   className="btn btn-lg btn-info m-2"         
                 > */}
-                  <NavDropdown.Item href="#action/3.1">
-                    <Link to="/me" variant="light">
-                      My Profile
+                  <NavDropdown.Item href="#MyMeetings">
+                    <Link to="/dashboard" variant="light">
+                      Dashboard
                     </Link>
                     </NavDropdown.Item>
                   <NavDropdown.Divider />

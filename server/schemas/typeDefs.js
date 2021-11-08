@@ -93,6 +93,7 @@ const typeDefs = gql`
     addMeeting(title: String! , description: String! , meetingPhoto: String! , date: String!, duration: String! location: String! , onLine: Boolean , ZoomURL: String) : Meeting
     addComment(meetingId: ID!, commentText: String!): Meeting
     removeMeeting(meetingId: ID!): Meeting
+    updateMeeting(meetingId: ID!): Meeting
     removeComment(meetingId: ID!, commentId: ID!): Meeting
     uploadImage(file: Upload!): File!
   }
