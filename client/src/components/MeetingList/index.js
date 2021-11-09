@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Card from '../Card'
 import { Row } from "react-bootstrap";
+import "./meetingList.css";
 
 const MeetingList = ({
   meetings,  
@@ -12,11 +13,13 @@ const MeetingList = ({
   }
 
   return (
+    <div >
     <Row xs={1} md={2} className="g-4">
       {meetings.map((meeting) => (
               <Card key={meeting.id} meeting={meeting} />
             ))}
     </Row>
+    </div>
   );
 };
 

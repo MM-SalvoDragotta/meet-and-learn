@@ -34,7 +34,7 @@ const styles = {
     backgroundColor: "goldenrod",
     borderColor: "black",
     transition: "all ease .5s",  
-    width: "265px",
+    width: "405px",
     justifyContent: 'center',
     alignItems: 'center'
   }

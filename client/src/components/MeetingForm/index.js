@@ -370,10 +370,11 @@ export default function MeetingForm (props) {
                               </ul>
                             </main>
                           </div> */}
-                        <Button className="bg-dark" type="submit">
-                            Submit
-                        </Button>
+                      
                       </Form.Group>
+                      <Button className="btn form-100" type="submit">
+                            Submit
+                      </Button>
 
                     </Form>
 

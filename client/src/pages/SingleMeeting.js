@@ -102,7 +102,7 @@ var size = Object.size(meeting.attendees)
                     <span className="letter">{size}</span>
                   </div>
                   <div className="card-meeting-title-group">            
-                    <div className="card-meeting-date">{meeting.date}</div>                    
+                    <div className="card-meeting-date">{meeting.date} | Event Duration : {meeting.duration}</div>                    
                     <h3 className="card-meeting-title">{meeting.title}</h3>            
                     <h6 className="card-meeting-date">Hosted by {meeting.organiser.organiserName}</h6>
                     {Auth.getProfile().data._id == meeting.organiser._id && 
@@ -114,13 +114,13 @@ var size = Object.size(meeting.attendees)
                         > Delete Meeting
                       </Button> 
 
-                    <Button 
+                    {/* <Button 
                       variant="primary"
                       onClick={handleUpdate}
                       className="btn-1"                   
                       > Update Meeting
                     </Button>
-                    
+                     */}
                     </div>
                     }
                   </div>

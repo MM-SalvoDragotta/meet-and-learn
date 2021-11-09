@@ -19,7 +19,7 @@ import SingleMeeting from './pages/SingleMeeting';
 // import Profile from './pages/Profile';
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
-// import Footer from './components/Footer';
+import Footer from './components/Footer';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createUploadLink({
@@ -53,7 +53,7 @@ function App() {
       <Router>
         <div className="flex-column justify-flex-start min-100-vh">
           <Header />
-          <div className="container">
+          <div className="container ">
             <Route exact path="/">
               <Home />
             </Route>
@@ -71,16 +71,8 @@ function App() {
             </Route>
             <Route exact path="/dashboard">
               <Dashboard />
-            </Route>
-
-            {/* <Route exact path="/me">
-              <Profile />
-            </Route> */}
-            {/* <Route exact path="/profiles/:username">
-              <Profile />
-            </Route> */}         
-          
-          {/* <Footer /> */}
+            </Route>                  
+          <Footer />
           </div>
         </div>
       </Router>

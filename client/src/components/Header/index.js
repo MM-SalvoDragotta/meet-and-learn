@@ -5,6 +5,8 @@ import { Nav , Navbar , NavDropdown , Dropdown , Container , SplitButton} from "
 
 import Auth from '../../utils/auth';
 
+import Logo from '../../assets/logo.png';
+
 const Header = () => {
   const logout = (event) => {
     event.preventDefault();    
@@ -21,7 +23,8 @@ const Header = () => {
         <Container fluid className="container flex-row justify-space-between-lg justify-center align-center">
           <Navbar.Brand href="#home">
             <Link className="text-light" to="/">
-                  <h2 className="m-0">Meet and Learn</h2>
+                  {/* <h2 className="m-0">Meet and Learn</h2> */}
+                  <img width="300px" height="auto" className="img-responsive" src={Logo}  alt="logo" />
             </Link>
           </Navbar.Brand>
 
@@ -54,13 +57,13 @@ const Header = () => {
                     </Link>
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.3">
+                  {/* <NavDropdown.Item href="#action/3.3">
                     Something
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#action/3.4">
                     Separated link
-                  </NavDropdown.Item>
+                  </NavDropdown.Item> */}
                 {/* </NavDropdown> */}
                 </SplitButton>                                
                   <button className="btn btn-lg btn-light m-2" onClick={logout}>
