@@ -35,7 +35,9 @@
 ## Description
 
 ```md
-This project makes it easier for people to connect, gather and share their views on a particular tech topic. Hosts of events can share content on the internet, and anyone is allowed to create, share and browse this content. A collection of like minded individuals gathering to knowledge share and network (online or in person).
+This project makes it easier for people to connect, gather and share their views on a particular tech topic. 
+Hosts of events can share content on the internet, and anyone is allowed to create, share and browse this content. 
+A collection of like minded individuals gathering to knowledge share and network (online or in person).
 ```
 ----
 
